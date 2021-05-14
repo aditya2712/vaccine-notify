@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap cdn -->
+    <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="/css/index.css">
+    
+    <title>Vaccine Notification</title>
+</head>
+<body>
+    <div class="container">
+        <form class="shadow-lg p-3 mb-5 bg-white " action="/otp/request" method="get">
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input required class="form-control" type="number" id="mobile" name="mobile" placeholder="Mobile Number" title="Please Enter a Valid Phone number">
+                <small id="emailHelp" class="form-text text-muted">Mobile number should be registered on Cowin Application.</small>
+            </div>
+            <div>
+                <button class="btn btn-primary " type="submit">Request OTP</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
