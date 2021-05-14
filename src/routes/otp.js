@@ -23,12 +23,11 @@ router.get('/request', auth, async (req, res)=>{
         res.clearCookie('otpToken');
         res.cookie('txnId', txnId, {maxAge: 180000 })
         res.cookie('mobile', mobile, {maxAge: 100000000000 })
-        res.redirect('/verifyotp')
+        res.render('otp.ejs')
     } catch (e) {
         console.log(e);
         res.send("OTP Already Send")
     }
-
 })
 
 router.get('/verify', auth, async(req, res)=>{

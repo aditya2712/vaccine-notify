@@ -20,16 +20,22 @@
         <form class="shadow-lg p-3 mb-5 bg-white " action="/otp/verify" method="get">
             <div class="form-group">
                 <label for="mobile">Mobile Number:</label>
-                <input required class="form-control" type="number" id="mobile" name="mobile" placeholder="Mobile Number" title="Please Enter a Valid Phone number">
+                <div class="form-control" id="mobile" ></div>
             </div>
             <div class="form-group">
                 <label for="otp">One Time Password:</label>
-                <input required class="form-control" type="number" id="otp" name="otp" placeholder="OTP">
+                <input class="form-control" type="text" pattern="^[0-9]{6}$" title="Enter a vaild 6 digit OTP" id="otp" name="otp" placeholder="OTP" required onkeypress="return onlyNumberKey(event)">
             </div>
             <div>
                 <button class="btn btn-primary " type="submit">Verify OTP</button>
             </div>
         </form>
     </div>
+    <script src="/js/onlyNumber.js"></script>
+    <script>
+        let mobile = document.querySelector('#mobile');
+        let urlParams = new URLSearchParams(window.location.search);
+        mobile.innerHTML = urlParams.get('mobile')
+    </script>
 </body>
 </html>

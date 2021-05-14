@@ -20,7 +20,7 @@
         <form class="shadow-lg p-3 mb-5 bg-white " action="/otp/request" method="get">
             <div class="form-group">
                 <label for="mobile">Mobile Number:</label>
-                <input required class="form-control" type="number" id="mobile" name="mobile" placeholder="Mobile Number" title="Please Enter a Valid Phone number">
+                <input class="form-control" type="tel" pattern="^[0-9]{10}$" id="mobile" name="mobile" placeholder="Mobile Number" title="Enter a Valid Phone number" onkeypress="return onlyNumberKey(event)"  required>
                 <small id="emailHelp" class="form-text text-muted">Mobile number should be registered on Cowin Application.</small>
             </div>
             <div>
@@ -28,5 +28,6 @@
             </div>
         </form>
     </div>
+    <script src="/js/onlyNumber.js"></script>
 </body>
 </html>
