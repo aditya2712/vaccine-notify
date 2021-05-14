@@ -2,11 +2,13 @@ const router = require('express').Router();
 const fetch = require('node-fetch');
 const crypto = require('crypto');
 
-const auth = require('../middlewares/auth')
+const User = require('../models/user');
+const auth = require('../middlewares/auth');
+
 
 router.get('/request', auth, async (req, res)=>{
     const fetchBody = req.query;
-
+    const mobile = req.query.mobile;
     try {
         const apiResponse = await fetch('https://cdn-api.co-vin.in/api/v2/auth/public/generateOTP',{
             method: 'post',
@@ -16,7 +18,9 @@ router.get('/request', auth, async (req, res)=>{
         apiResponseJson = await apiResponse.json();
         const txnId = apiResponseJson.txnId
         res.clearCookie('otpToken');
-        res.cookie('txnId', txnId, {maxAge: 180000 }).send("OTP send")
+        res.cookie('txnId', txnId, {maxAge: 180000 })
+        res.cookie('mobile', mobile, {maxAge: 100000000000 })
+        res.send("OTP send")
     } catch (e) {
         console.log(e);
         res.send("OTP Already Send")
@@ -29,6 +33,7 @@ router.get('/verify', auth, async(req, res)=>{
     const hashedOtp = crypto.createHash("sha256").update(otp).digest('hex');
     
     const txnId = req.cookies.txnId;
+    const mobile = req.cookies.mobile;
     
     const fetchBody = {
         "otp": hashedOtp,
@@ -46,8 +51,23 @@ router.get('/verify', auth, async(req, res)=>{
             return res.send(apiResponseJson.error)
         }
         token = apiResponseJson.token
-        res.clearCookie('txnId');
-        res.cookie('otpToken', token, {maxAge: 100000000000}).send("User Authenticated");
+
+        const oldUser = User.findOne({mobile: mobile})
+        if(oldUser){
+            User.updateOne({mobile: mobile}, { $set: {token: token} })
+        }
+        else{
+            const newUser = new User({
+                mobile: mobile,
+                token: token
+            })
+            newUser.save(function(err){
+                throw new Error(err)
+            })
+        }
+
+        res.cookie('otpToken', token, {maxAge: 100000000000})
+        res.send("User Authenticated: "+ req.cookies.mobile);
     } catch (e) {
         console.log(e);
         res.send("Internal Server Error")
