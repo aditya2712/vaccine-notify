@@ -7,8 +7,11 @@ const auth = require('../middlewares/auth');
 
 
 router.get('/request', auth, async (req, res)=>{
-    const fetchBody = req.query;
+    
     const mobile = req.query.mobile;
+    const fetchBody = {
+        mobile
+    };
     try {
         const apiResponse = await fetch('https://cdn-api.co-vin.in/api/v2/auth/public/generateOTP',{
             method: 'post',
@@ -20,7 +23,7 @@ router.get('/request', auth, async (req, res)=>{
         res.clearCookie('otpToken');
         res.cookie('txnId', txnId, {maxAge: 180000 })
         res.cookie('mobile', mobile, {maxAge: 100000000000 })
-        res.send("OTP send")
+        res.redirect('/verifyotp')
     } catch (e) {
         console.log(e);
         res.send("OTP Already Send")
