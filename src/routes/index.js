@@ -8,11 +8,10 @@ router.use('/user', userRouter);
 
 
 router.get('/', auth, (req, res)=>{
-    res.render('phoneNo.ejs');
-})
-
-router.get('/requestotp', auth, (req, res)=>{
-    res.render('phoneNo.ejs');
+    res.render('phoneNo.ejs', {
+        message: {
+        }
+    });
 })
 
 router.get('/verifyotp', auth, (req, res)=> {
