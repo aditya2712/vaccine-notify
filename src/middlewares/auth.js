@@ -1,6 +1,10 @@
 const User = require('../models/user');
 
-function auth(req, res, next)  {
+auth = (req, res, next) => {
+    
+}
+
+isLoggedIn = (req, res, next) => {
     const token = req.cookies.otpToken
     const mobile = req.cookies.mobile
     const user = User.findOne({
@@ -8,14 +12,15 @@ function auth(req, res, next)  {
         token: token
     })
     if(user && token && mobile){
-        return res.render('user.ejs',{
-            message:{
-                success:"Already Logged In"
+        return res.render('user.ejs', {
+            message: {
+                success: "Already Logged In"
             },
-            mobile: mobile
+            mobile: req.cookies.mobile
         });
     }
     next();
 }
 
-module.exports = auth;
+module.exports = isLoggedIn
+

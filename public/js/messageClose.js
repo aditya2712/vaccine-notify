@@ -1,4 +1,5 @@
 let msg = document.querySelector('.flashMessage');
+
 setTimeout(() => {
     msg.style.display = "none";
 }, 3000);
