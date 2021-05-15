@@ -10,7 +10,7 @@ function auth(req, res, next)  {
     if(user && token && mobile){
         return res.render('user.ejs',{
             message:{
-                success:"Already Logged In Successfully"
+                success:"Already Logged In"
             },
             mobile: mobile
         });

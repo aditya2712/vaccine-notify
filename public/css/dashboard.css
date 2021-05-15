@@ -11,3 +11,16 @@ body{
 .profile-info{
     padding: 5px;
 }
+.nav{
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 480px){
+    .btn{
+        font-size: medium;
+    }
+    .profile-info{
+        padding: 2px;
+        font-size: small;
+    }
+}

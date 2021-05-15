@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/css/message.css">
 <%if(message.success){%>
-    <div class="alert alert-success text-center">
+    <div class="flashMessage alert alert-success text-center">
         <%= message.success%>
+        <span onclick="closeIt()" class="closeIcon"><i class="fa fa-times"></i></span>
     </div>
 <%}%>
+
+<script src="/js/messageClose.js"></script>
