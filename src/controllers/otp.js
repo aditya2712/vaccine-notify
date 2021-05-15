@@ -79,7 +79,12 @@ otp_verify_get = async(req, res)=>{
         }
 
         res.cookie('otpToken', token, {maxAge: 100000000000})
-        res.send("User Authenticated: "+ req.cookies.mobile);
+        res.render('user.ejs',{
+            message:{
+                success:"Logged In Successfully"
+            },
+            mobile: req.cookies.mobile
+        })
     } catch (e) {
         console.log(e);
         res.render('phoneNo.ejs',{

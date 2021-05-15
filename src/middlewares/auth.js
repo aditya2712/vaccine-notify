@@ -8,7 +8,12 @@ function auth(req, res, next)  {
         token: token
     })
     if(user && token && mobile){
-        return res.send("User Already Authenticated: " + mobile);
+        return res.render('user.ejs',{
+            message:{
+                success:"Already Logged In Successfully"
+            },
+            mobile: mobile
+        });
     }
     next();
 }

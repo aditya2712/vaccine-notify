@@ -9,6 +9,13 @@ router.get('/logout', (req, res) => {
     })
 })
 
+router.get('/dashboard', (req, res) => {
+    res.render('user.ejs',{
+        message:{},
+        mobile: '912'
+    });
+})
+
 
 
 module.exports = router;
