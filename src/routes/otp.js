@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const otpController = require('../controllers/otp')
-const isLoggedIn = require('../middlewares/auth')
+const isLoggedIn = require('../middlewares/isLoggedIn')
 
 
 router.get( '/request', isLoggedIn, otpController.otp_request_get )

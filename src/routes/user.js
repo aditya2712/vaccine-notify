@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const auth = require('../middlewares/auth')
 
 router.get('/logout', (req, res) => {
     res.clearCookie('otpToken');
@@ -9,7 +10,7 @@ router.get('/logout', (req, res) => {
     })
 })
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', auth, (req, res) => {
     res.render('user.ejs',{
         message:{},
         mobile: req.cookies.mobile
