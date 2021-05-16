@@ -1,3 +1,4 @@
+const user = require('../models/user')
 
 user_logout = async (req, res) => {
     try {
@@ -23,7 +24,31 @@ user_dashboard_get = async (req, res) => {
     }
 }
 
+user_add_pin = async(req, res) => {
+    try {
+        pin = req.query.pin;
+        console.log(req.cookies.mobile)
+        console.log(pin);
+        user.find((err, currUser) => {
+            console.log(currUser)
+        })
+        // console.log(currUser.schema.obj.pins);
+        // await user.updateOne({mobile: req.cookies.mobile}, {$push : {pins: pin} }, function(error, success){
+        //     if(error)
+        //     console.log(error)
+        //     else{
+        //         console.log(success)
+        //         console.log("added")
+        //     }
+        // })       
+        // res.redirect('/user/dashboard') 
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     user_logout,
-    user_dashboard_get
+    user_dashboard_get,
+    user_add_pin
 }

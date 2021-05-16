@@ -35,7 +35,7 @@ otp_request_get =  async (req, res)=>{
     }
 }
 
-otp_verify_get = async(req, res)=>{
+otp_verify_get = async (req, res)=>{
 
     try {
         const otp = req.query.otp;
@@ -64,18 +64,16 @@ otp_verify_get = async(req, res)=>{
         }
         token = apiResponseJson.token
 
-        const oldUser = User.findOne({mobile: mobile})
+        const oldUser = await User.findOne({mobile: mobile}).exec()    
         if(oldUser){
-            User.updateOne({mobile: mobile}, { $set: {token: token} })
+            await User.updateOne({mobile: mobile}, { $set: {token: token} })
         }
         else{
             const newUser = new User({
                 mobile: mobile,
                 token: token
             })
-            newUser.save(function(err){
-                throw new Error(err)
-            })
+            await newUser.save()
         }
 
         res.cookie('otpToken', token, {maxAge: 100000000000})
