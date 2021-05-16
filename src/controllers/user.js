@@ -47,8 +47,28 @@ user_add_pin = async(req, res) => {
     }
 }
 
+user_delete_pin = async(req, res) =>{
+    try {
+        pinToDel = req.query.pin;
+        mobile = req.cookies.mobile;
+        user = await User.findOne({mobile: mobile}).exec()
+        pins = user.pins;
+        for( let i = 0; i < pins.length; i++){ 
+            if ( pins[i] == pinToDel) { 
+                pins.splice(i, 1);
+                break; 
+            }
+        }
+        await User.updateOne({mobile: mobile}, { $set: {pins: pins} })
+        res.redirect('/user/dashboard')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     user_logout,
     user_dashboard_get,
-    user_add_pin
+    user_add_pin,
+    user_delete_pin
 }
