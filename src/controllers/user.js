@@ -70,6 +70,7 @@ user_delete_pin = async(req, res) =>{
     try {
         pinToDel = req.query.pin;
         mobile = req.cookies.mobile;
+
         user = await User.findOne({mobile: mobile}).exec()
         pins = user.pins;
         for( let i = 0; i < pins.length; i++){ 
@@ -79,6 +80,17 @@ user_delete_pin = async(req, res) =>{
             }
         }
         await User.updateOne({mobile: mobile}, { $set: {pins: pins} })
+
+        existingPin = await Pin.findOne({pin: pinToDel}).exec()
+        userIDs = existingPin.user_ids;
+        for( let i = 0; i < userIDs.length; i++){ 
+            if ( userIDs[i] == user._id) { 
+                userIDs.splice(i, 1);
+                break; 
+            }
+        }
+        await Pin.updateOne({pin: pinToDel}, { $set: {user_ids: userIDs} })
+
         res.redirect('/user/dashboard')
     } catch (error) {
         console.log(error)
