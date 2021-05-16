@@ -3,12 +3,10 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema(
     {
         mobile: {
-            type: String,
-            required: true
+            type: String
         },
         token: {
-            type: String,
-            required: true
+            type: String
         },
         pins: [{
             type: String
