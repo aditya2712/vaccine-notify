@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchmea = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
         mobile: {
             type: String,
@@ -16,7 +16,7 @@ const userSchmea = new mongoose.Schema(
     }
 )
 
-const User = mongoose.model('User', userSchmea);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User
 

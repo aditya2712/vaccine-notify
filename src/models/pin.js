@@ -1,9 +1,16 @@
 const mongoose = require('mongoose')
 
-const pinSchmea = new mongoose.Schema(
+const pinSchema = new mongoose.Schema(
     {
-        pins: [{
+        pin: {
+            type: String
+        },
+        user_ids: [{
             type: String
         }]
     }
 )
+
+const Pin = mongoose.model('Pin', pinSchema);
+
+module.exports = Pin;
