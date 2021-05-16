@@ -8,10 +8,11 @@ auth = async (req, res, next) => {
             mobile: mobile,
             token: token
         }).exec()
-        console.log(user)
         if(!user || !token || !mobile){
             return res.render('phoneNo.ejs', {
-                message: {}
+                message: {
+                    error: "Please Login First"
+                }
             });
         }
         next();
