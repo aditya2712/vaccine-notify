@@ -38,8 +38,8 @@
                     <input class="form-control" type="tel" pattern="^[0-9]{6}$" onkeypress="return onlyNumberKey(event)" name="pin" id="pin" placeholder="pincode" title="Enter a valid pincode" required>
                 </div>
                 <div class="buttons d-flex justify-content-around mt-4">
-                    <button class="btn btn-success" type="submit">Add pincode</button>
-                    <button class="btn btn-warning" type="submit" formaction="/user/deletepin">Delete pincode</button>
+                    <button id="addPin" class="btn btn-success" type="submit">Add pincode</button>
+                    <button id="deletePin" class="btn btn-warning" type="submit" formaction="/user/deletepin">Delete pincode</button>
                 </div>
             </form>
             <hr class="">
@@ -57,6 +57,12 @@
             <% } %>
         </div>
     </div>
+    <script>
+        if(<%=user.pins.length%> == 0){  
+            document.querySelector('#deletePin').disabled = 'true';
+        }
+        // console.log(<%=user.pins.length%>) 
+    </script>
     <script src="/js/onlyNumber.js"></script>
     <script src="/js/populateMobile.js"></script>
     <script src="/js/messageClose.js"></script>
