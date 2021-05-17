@@ -8,13 +8,9 @@ isLoggedIn = (req, res, next) => {
         token: token
     })
     if(user && token && mobile){
-        return res.render('user.ejs', {
-            message: {
-                success: "Already Logged In"
-            },
-            mobile: req.cookies.mobile,
-            pins: {}
-        });
+        req.user = user;
+        req.successMsg = "Already Logged In"
+        return res.redirect('/user/dashboard')
     }
     next();
 }

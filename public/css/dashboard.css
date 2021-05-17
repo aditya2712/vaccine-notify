@@ -15,7 +15,7 @@ body{
     margin-top: 10px;
 }
 
-form{
+.area{
     position: fixed;
     left: 50%;
     top: 50%;
@@ -24,6 +24,11 @@ form{
     padding: 20px 10px;
     width: 25%;
     border-radius: 5px;
+}
+
+hr{
+    height: 1px;
+    background-color: #484848;
 }
 
 @media screen and (max-width: 480px){

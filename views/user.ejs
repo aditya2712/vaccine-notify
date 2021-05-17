@@ -24,28 +24,38 @@
     <%- include('partials/errorMsg.ejs') %>
     <div class="container-fluid">
         <div class="d-flex justify-content-between nav">
-            <span class="profile-info bg-light text-info rounded border border-info">Mobile Number: <%=mobile%></span>
+            <span class="profile-info bg-light text-info rounded border border-info">Mobile Number: <%=user.mobile%></span>
             <a href="/user/logout" class="btn btn-danger btn">
                 <span class="fas fa-sign-out-alt"></span> Log out
             </a>
         </div>
-        <form class="shadow-lg p-3 mb-5 bg-white " action="/user/addpin" method="get">
-            <div class="form-group">
-                <label for="pin">
-                    Postal Pincode:
-                </label>
-                <input class="form-control" type="tel" pattern="^[0-9]{6}$" onkeypress="return onlyNumberKey(event)" name="pin" id="pin" placeholder="pincode" title="Enter a valid pincode" required>
-            </div>
-            <div class="buttons d-flex justify-content-around mt-4">
-                <button class="btn btn-success" type="submit">Add pincode</button>
-                <button class="btn btn-warning" disabled type="submit" formaction="/user/deletepin">Delete pincode</button>
-            </div>
-        </form>
-        <% if(pins[0]){ %>
-        <%=pins%>
-        <% } else {%>
-            <div>No Pincodes Added</div>
-        <% } %>
+        <div class="shadow-lg p-3 mb-5 bg-white area">
+            <form action="/user/addpin" method="get">
+                <div class="form-group">
+                    <label for="pin" class="h5">
+                        Postal Pincode:
+                    </label>
+                    <input class="form-control" type="tel" pattern="^[0-9]{6}$" onkeypress="return onlyNumberKey(event)" name="pin" id="pin" placeholder="pincode" title="Enter a valid pincode" required>
+                </div>
+                <div class="buttons d-flex justify-content-around mt-4">
+                    <button class="btn btn-success" type="submit">Add pincode</button>
+                    <button class="btn btn-warning" type="submit" formaction="/user/deletepin">Delete pincode</button>
+                </div>
+            </form>
+            <hr class="">
+            <h5 class="text-center ">
+                Pincodes Added
+            </h5>
+            <% if(user.pins[0]){ %>
+                <%for(let i=0;i<user.pins.length;i++){%>
+                    <li class="h6">
+                        <%=user.pins[i]%>
+                    </li>
+                <% } %>
+            <% } else {%>
+                <div>No Pincodes Added</div>
+            <% } %>
+        </div>
     </div>
     <script src="/js/onlyNumber.js"></script>
     <script src="/js/populateMobile.js"></script>

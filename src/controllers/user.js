@@ -17,9 +17,11 @@ user_logout = async (req, res) => {
 user_dashboard_get = async (req, res) => {
     try {
         res.render('user.ejs',{
-            message:{},
-            mobile: req.cookies.mobile,
-            pins: {}
+            message:{
+                success: req.successMsg,
+                error: req.errorMsg
+            },
+            user: req.user
         });
     } catch (error) {
         console.log(error)
@@ -41,13 +43,9 @@ user_add_pin = async(req, res) => {
             }
         }
         if(flag){
-            return res.render('user.ejs', {
-                message:{
-                    success: "Pin is already added for notification"
-                },
-                mobile: mobile,
-                pins: pins
-            })
+            req.successMsg = "Pin is already added for notification",
+            req.user = user
+            return res.redirect('/user/dashboard')
         }
 
         pins.push(newPin);
@@ -58,13 +56,10 @@ user_add_pin = async(req, res) => {
             users = existingPin.user_ids;
             users.push(user._id);
             await Pin.updateOne({pin: newPin}, {$set: {user_ids: users}});
-            return res.render('user.ejs', {
-                message:{
-                    success: "Pin Added for notification"
-                },
-                mobile: mobile,
-                pins: pins
-            })
+            req.successMsg = "Pin Added for notification";
+            user.pins = pins;
+            req.user = user
+            return res.redirect('/user/dashboard')
         }
 
         const pin = new Pin({
@@ -72,13 +67,12 @@ user_add_pin = async(req, res) => {
             user_ids : [user._id]
         })
         await pin.save()
-        return res.render('user.ejs', {
-            message:{
-                success: "Pin Added for notification"
-            },
-            mobile: mobile,
-            pins: pins
-        })
+
+        req.successMsg = "Pin Added for notification";
+        user.pins = pins;
+        req.user = user
+        return res.redirect('/user/dashboard')
+        
         
     } catch (error) {
         console.log(error)
@@ -110,13 +104,11 @@ user_delete_pin = async(req, res) =>{
         }
         await Pin.updateOne({pin: pinToDel}, { $set: {user_ids: userIDs} })
 
-        res.render('user.ejs', {
-            message:{
-                success: "Pin Deleted"
-            },
-            mobile:  mobile,
-            pins: pins
-        })
+        req.successMsg = "Pin Deleted";
+        user.pins = pins;
+        req.user = user
+        return res.redirect('/user/dashboard')
+
     } catch (error) {
         console.log(error)
     }
