@@ -9,7 +9,7 @@ isLoggedIn = (req, res, next) => {
     })
     if(user && token && mobile){
         req.user = user;
-        req.successMsg = "Already Logged In"
+        res.cookie('successMsg', "Already Logged In", {maxAge: 3500} )
         return res.redirect('/user/dashboard')
     }
     next();

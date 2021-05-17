@@ -78,7 +78,7 @@ otp_verify_get = async (req, res)=>{
 
         const user = await User.findOne({mobile: mobile}).exec()
         res.cookie('otpToken', token, {maxAge: 100000000000})
-        req.successMsg = "Logged In Successfully"
+        res.cookie('successMsg', "Logged In Successfully", {maxAge: 3500} ) = 
         req.user = user
         res.redirect('/user/dashboard')
     } catch (e) {

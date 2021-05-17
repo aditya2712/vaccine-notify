@@ -16,12 +16,11 @@ user_logout = async (req, res) => {
 
 user_dashboard_get = async (req, res) => {
     try {
-        console.log(req.successMsg)
-        console.log(req.errorMsg)
+        // console.log(req.cookies)
         res.render('user.ejs',{
             message:{
-                success: req.successMsg,
-                error: req.errorMsg
+                success: req.cookies.successMsg,
+                error: req.cookies.errorMsg
             },
             user: req.user
         });
@@ -45,7 +44,7 @@ user_add_pin = async(req, res) => {
             }
         }
         if(flag){
-            req.successMsg = "Pincode is already added for notification",
+            res.cookie('successMsg', "Pincode is already added for notification", {maxAge: 3500} )
             req.user = user
             return res.redirect('/user/dashboard')
         }
@@ -58,7 +57,7 @@ user_add_pin = async(req, res) => {
             users = existingPin.user_ids;
             users.push(user._id);
             await Pin.updateOne({pin: newPin}, {$set: {user_ids: users}});
-            req.successMsg = "Pincode Added for notification";
+            res.cookie('successMsg', "Pincode Added for notification", {maxAge: 3500} )
             user.pins = pins;
             req.user = user
             return res.redirect('/user/dashboard')
@@ -69,7 +68,7 @@ user_add_pin = async(req, res) => {
             user_ids : [user._id]
         })
         await pin.save()
-        req.successMsg = "Pincode Added for notification";
+        res.cookie('successMsg', "Pincode Added for notification", {maxAge: 3500} )
         user.pins = pins;
         req.user = user
         return res.redirect('/user/dashboard')
@@ -98,8 +97,8 @@ user_delete_pin = async(req, res) =>{
         }
 
         if(initialLenghtOfPinsArray == pins.length){
-            req.errorMsg = "Pincode does not exists"
-            req.user = user
+            res.cookie('errorMsg', "Pincode does not exists", {maxAge: 3500} )
+            req.user = user;
             return res.redirect('/user/dashboard')
         }
 
@@ -115,9 +114,9 @@ user_delete_pin = async(req, res) =>{
         }
         await Pin.updateOne({pin: pinToDel}, { $set: {user_ids: userIDs} })
 
-        req.successMsg = "Pincode Deleted";
+        res.cookie('successMsg', "Pincode deleted", {maxAge: 3500} )
         user.pins = pins;
-        req.user = user
+        req.user = user;
         return res.redirect('/user/dashboard')
 
     } catch (error) {
