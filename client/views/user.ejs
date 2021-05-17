@@ -35,7 +35,7 @@
                     <label for="pin" class="h5">
                         Postal Pincode:
                     </label>
-                    <input class="form-control" type="tel" pattern="^[0-9]{6}$" onkeypress="return onlyNumberKey(event)" name="pin" id="pin" placeholder="pincode" title="Enter a valid pincode" required>
+                    <input class="form-control" type="tel" pattern="^[0-9]{6}$" onkeypress="return onlyNumberKey(event)" name="pin" id="pin" placeholder="pincode" title="Enter a valid pincode" required autocomplete="off">
                 </div>
                 <div class="buttons d-flex justify-content-around mt-4">
                     <button id="addPin" class="btn btn-success" type="submit">Add pincode</button>
@@ -66,5 +66,6 @@
     <script src="/js/onlyNumber.js"></script>
     <script src="/js/populateMobile.js"></script>
     <script src="/js/messageClose.js"></script>
+    <script src="/js/swRegister.js"></script>
 </body>
 </html>

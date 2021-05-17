@@ -25,8 +25,8 @@
         <form class="shadow-lg p-3 mb-5 bg-white " action="/otp/request" method="get">
             <div class="form-group">
                 <label for="mobile">Mobile Number:</label>
-                <input class="form-control" type="tel" pattern="^[0-9]{10}$" id="mobile" name="mobile" placeholder="Mobile Number" title="Enter a Valid Phone number" onkeypress="return onlyNumberKey(event)"  required>
-                <small id="emailHelp" class="form-text text-muted">Mobile number should be registered on Cowin Application.</small>
+                <input class="form-control" type="tel" pattern="^[0-9]{10}$" id="mobile" name="mobile" placeholder="Mobile Number" title="Enter a Valid Phone number" onkeypress="return onlyNumberKey(event)" autocomplete="off" required>
+                <small id="emailHelp" class="form-text text-muted" >Mobile number should be registered on Cowin Application.</small>
             </div>
             <div>
                 <button class="btn btn-primary " type="submit">Request OTP</button>
@@ -35,5 +35,6 @@
     </div>
     <script src="/js/onlyNumber.js"></script>
     <script src="/js/messageClose.js"></script>
+    <script src="/js/swRegister.js"></script>
 </body>
 </html>
