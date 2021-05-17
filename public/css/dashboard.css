@@ -39,4 +39,7 @@ hr{
         padding: 2px;
         font-size: small;
     }
+    .area{
+        width: 90%;
+    }
 }
