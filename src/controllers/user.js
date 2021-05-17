@@ -18,7 +18,8 @@ user_dashboard_get = async (req, res) => {
     try {
         res.render('user.ejs',{
             message:{},
-            mobile: req.cookies.mobile
+            mobile: req.cookies.mobile,
+            pins: {}
         });
     } catch (error) {
         console.log(error)
@@ -40,7 +41,13 @@ user_add_pin = async(req, res) => {
             }
         }
         if(flag){
-            return res.redirect('/user/dashboard')
+            return res.render('user.ejs', {
+                message:{
+                    success: "Pin is already added for notification"
+                },
+                mobile: mobile,
+                pins: pins
+            })
         }
 
         pins.push(newPin);
@@ -51,7 +58,13 @@ user_add_pin = async(req, res) => {
             users = existingPin.user_ids;
             users.push(user._id);
             await Pin.updateOne({pin: newPin}, {$set: {user_ids: users}});
-            return res.redirect('/user/dashboard') 
+            return res.render('user.ejs', {
+                message:{
+                    success: "Pin Added for notification"
+                },
+                mobile: mobile,
+                pins: pins
+            })
         }
 
         const pin = new Pin({
@@ -59,7 +72,13 @@ user_add_pin = async(req, res) => {
             user_ids : [user._id]
         })
         await pin.save()
-        return res.redirect('/user/dashboard')
+        return res.render('user.ejs', {
+            message:{
+                success: "Pin Added for notification"
+            },
+            mobile: mobile,
+            pins: pins
+        })
         
     } catch (error) {
         console.log(error)
@@ -91,7 +110,13 @@ user_delete_pin = async(req, res) =>{
         }
         await Pin.updateOne({pin: pinToDel}, { $set: {user_ids: userIDs} })
 
-        res.redirect('/user/dashboard')
+        res.render('user.ejs', {
+            message:{
+                success: "Pin Deleted"
+            },
+            mobile:  mobile,
+            pins: pins
+        })
     } catch (error) {
         console.log(error)
     }

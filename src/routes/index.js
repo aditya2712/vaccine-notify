@@ -14,8 +14,4 @@ router.get('/', isLoggedIn, (req, res)=>{
     });
 })
 
-router.get('/verifyotp', isLoggedIn, (req, res)=> {
-    res.render('otp.ejs');
-})
-
 module.exports = router;

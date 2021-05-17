@@ -12,7 +12,8 @@ isLoggedIn = (req, res, next) => {
             message: {
                 success: "Already Logged In"
             },
-            mobile: req.cookies.mobile
+            mobile: req.cookies.mobile,
+            pins: {}
         });
     }
     next();

@@ -81,7 +81,8 @@ otp_verify_get = async (req, res)=>{
             message:{
                 success:"Logged In Successfully"
             },
-            mobile: req.cookies.mobile
+            mobile: req.cookies.mobile,
+            pins: {}
         })
     } catch (e) {
         console.log(e);

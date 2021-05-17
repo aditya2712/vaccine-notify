@@ -29,7 +29,7 @@
                 <span class="fas fa-sign-out-alt"></span> Log out
             </a>
         </div>
-        <form class="shadow-lg p-3 mb-5 bg-white " action="/willDefineLater" method="get">
+        <form class="shadow-lg p-3 mb-5 bg-white " action="/user/addpin" method="get">
             <div class="form-group">
                 <label for="pin">
                     Postal Pincode:
@@ -37,10 +37,15 @@
                 <input class="form-control" type="tel" pattern="^[0-9]{6}$" onkeypress="return onlyNumberKey(event)" name="pin" id="pin" placeholder="pincode" title="Enter a valid pincode" required>
             </div>
             <div class="buttons d-flex justify-content-around mt-4">
-                <button class="btn btn-success" type="">Add pincode</button>
-                <button class="btn btn-warning" type="">Delete pincode</button>
+                <button class="btn btn-success" type="submit">Add pincode</button>
+                <button class="btn btn-warning" disabled type="submit" formaction="/user/deletepin">Delete pincode</button>
             </div>
         </form>
+        <% if(pins[0]){ %>
+        <%=pins%>
+        <% } else {%>
+            <div>No Pincodes Added</div>
+        <% } %>
     </div>
     <script src="/js/onlyNumber.js"></script>
     <script src="/js/populateMobile.js"></script>
