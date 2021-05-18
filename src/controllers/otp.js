@@ -53,8 +53,7 @@ otp_verify_get = async (req, res)=>{
             method: 'post',
             body: JSON.stringify(fetchBody),
             headers: { 
-                'Content-Type': 'application/json',
-                'BearerAuth': process.env.bearerAuth 
+                'Content-Type': 'application/json'
             }
         })
         apiResponseJson = await apiResponse.json();
