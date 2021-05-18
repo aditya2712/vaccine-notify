@@ -23,13 +23,13 @@ app.use(express.json())
 
 app.set('view-engine', 'ejs')
 
-app.post('/subscribe', (req, res) => {
-    console.log(req.body)
-    const subscription = req.body;
-    res.status(201).json({})
-    const payload = JSON.stringify({ title: "Test Notification" })
-    webpush.sendNotification(subscription, payload).catch(err => console.log(err))
-} )
+// app.post('/subscribe', (req, res) => {
+//     console.log(req.body)
+//     const subscription = req.body;
+//     res.status(201).json({})
+//     const payload = JSON.stringify({ title: "Test Notification" })
+//     webpush.sendNotification(subscription, payload).catch(err => console.log(err))
+// } )
 
 app.use('/', routes)
 
