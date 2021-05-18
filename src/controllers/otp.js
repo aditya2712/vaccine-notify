@@ -52,7 +52,10 @@ otp_verify_get = async (req, res)=>{
         const apiResponse = await fetch('https://cdn-api.co-vin.in/api/v2/auth/public/confirmOTP',{
             method: 'post',
             body: JSON.stringify(fetchBody),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer' + process.env.bearerAuth 
+            }
         })
         apiResponseJson = await apiResponse.json();
         if(apiResponseJson.errorCode){
